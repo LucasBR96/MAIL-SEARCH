@@ -19,7 +19,7 @@ assim a tabela de adjacência fica:
 2 | 0 1 3
 3 | 0 1 2
 
-Aí é só executar o algoritimo de dijikistra sobre o novo grafo.
+Aí é só executar o algoritimo de dijkstra sobre o novo grafo.
 '''
 
 from data_struct import GRAPH , HEAP_MIN
@@ -48,14 +48,23 @@ def get_input( ):
 def init_globals( K ):
 
     global ACM , NXT
+
+    #--------------------------------------------------
+    # peso acumulado de cada vertice na busca em largura
+    # iniciando em K
     ACM = [ maxsize ]*250
     ACM[ K ] = 0
-
+    
+    #--------------------------------------------------
+    # O no ancestral na busca de dijkstra.
     NXT = [ None ]*250
     NXT[ K ] = K
 
 def relax( u , v , w ):
-
+    
+    #--------------------------------------------------
+    # verifica se a aresta u , v é melhor que a conexão
+    # atual do vértice v
     v1 = ACM[ u ] + w( u , v )
     v2 = ACM[ v ]
 
@@ -64,6 +73,11 @@ def relax( u , v , w ):
         NXT[ v ] = u
 
 def main( G , C , K ):
+    
+    '''
+    Execução de um algoritimo de dijkstra. Com o twist
+    descrito no inicio desse arquivo.
+    '''
 
     tab = G.Adj_tab()
     for v in range( C - 1 ):
@@ -89,6 +103,3 @@ if __name__ == "__main__":
     for G , C , K in S:
         result = main( G , C , K )
         print( result )
-
-
-    
